@@ -313,6 +313,10 @@ const captureWebsite = async (input, options) => {
 		await page.waitFor(options.delay * 1000);
 	}
 
+	if (options.recalculateClipAfterDelay) {
+		screenshotOptions.clip = await page.$eval(options.element, getBoundingClientRect);
+	}
+
 	if (options.scrollToElement) {
 		if (typeof options.scrollToElement === 'object') {
 			await page.$eval(options.scrollToElement.element, scrollToElement, options.scrollToElement);
